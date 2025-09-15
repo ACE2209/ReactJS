@@ -1,0 +1,27 @@
+import { useEffect, useState } from "react";
+
+export default function DemoEmptyDeps() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    {
+      console.log("Bắt đầu fetch");
+    }
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    {
+      console.log("Chương trình đã chạy qua fetch");
+    }
+    // [] nghĩa là: chỉ chạy khi component được mount lần đầu tiên
+    // → Dù component re-render bao nhiêu lần, useEffect vẫn chỉ chạy 1 lần duy nhất ✅
+  }, []);
+  return (
+    <>
+      <h3>Không truyền dependency</h3>
+      <button onClick={() => setCount(count + 1)}>Tăng</button>
+      <p>Giá trị : {count}</p>
+      {console.log("Render lại giao diện")}
+    </>
+  );
+}
